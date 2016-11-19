@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_distance"
+            android:icon="@drawable/ic_menu_diatance"
+            android:title="Obstacles Distance N" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_Profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_alarm"
+            android:icon="@drawable/ic_menu_Alarm"
+            android:title="Alarm" />
+    </group>
+
+    <item android:title="Notification">
+        <menu>
+            <item
+                android:id="@+id/nav_voice"
+                android:icon="@drawable/ic_menu_Voice"
+                android:title="Voice" />
+            <item
+                android:id="@+id/nav_gui"
+                android:icon="@drawable/ic_menu_GUI"
+                android:title="GUI" />
+        </menu>
+    </item>
+
+</menu>

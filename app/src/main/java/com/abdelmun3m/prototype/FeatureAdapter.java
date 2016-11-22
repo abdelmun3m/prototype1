@@ -20,7 +20,6 @@ public class FeatureAdapter extends BaseExpandableListAdapter {
     private Context ctx;
     private HashMap<String,List<String>>Feature_category;
     private List<String>FeatureList;
-
     public FeatureAdapter(Context ctx,HashMap<String,List<String>>Feature_category,List<String>FeatureList)
     {
         this.ctx=ctx;

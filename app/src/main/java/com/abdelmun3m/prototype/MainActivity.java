@@ -27,10 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ProgressBar progBar;
     private TextView text;
-    private Handler mHandler = new Handler();
-    private int mProgressStatus=120;
     HashMap<String,List<String>> Feature_category;
     List<String> Feature_list;
     ExpandableListView Exp_List;
@@ -47,11 +44,6 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        progBar= (ProgressBar)findViewById(R.id.progressBar);
-        text = (TextView)findViewById(R.id.textView1);
-        progressUpdate();
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,35 +67,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-    public void progressUpdate() {
-
-        new Thread(new Runnable() {
-            public void run() {
-                while (mProgressStatus > 0) {
-                    mProgressStatus -= 1;
-
-                    // Update the progress bar
-                    mHandler.post(new Runnable() {
-                        public void run() {
-                            progBar.setProgress(mProgressStatus);
-                            text.setText(""+mProgressStatus+"m");
-
-                        }
-                    });
-                    try {
-
-
-
-                        Thread.sleep(120);
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
 
     @Override
     public void onBackPressed() {

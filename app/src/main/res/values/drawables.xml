@@ -4,5 +4,4 @@
     <item name="ic_menu_Alarm" type="drawable">@android:drawable/ic_popup_reminder</item>
     <item name="ic_menu_Voice" type="drawable">@drawable/abc_btn_check_to_on_mtrl_015</item>
     <item name="ic_menu_GUI" type="drawable">@drawable/abc_btn_check_to_on_mtrl_000</item>
-
 </resources>

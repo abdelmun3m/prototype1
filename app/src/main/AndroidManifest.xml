@@ -26,6 +26,14 @@
             android:theme="@style/AppTheme.CustomTheme">
 
         </activity>
+        <activity android:name=".Voice_popup"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".alarm_time_popup"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
     </application>
 
 </manifest>

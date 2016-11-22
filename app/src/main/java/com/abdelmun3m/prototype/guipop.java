@@ -25,7 +25,6 @@ public class guipop extends Activity {
         getWindow().setLayout((int)(width*.8),(int)(height*.35));
 
         CheckBox gui=(CheckBox)findViewById(R.id.guichk);
-
         CheckBox flash=(CheckBox)findViewById(R.id.flashChk);
 
     }

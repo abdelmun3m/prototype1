@@ -15,7 +15,6 @@
             android:icon="@drawable/ic_menu_Alarm"
             android:title="Alarm" />
     </group>
-
     <item android:title="Notification">
         <menu>
             <item

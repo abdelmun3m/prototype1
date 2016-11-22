@@ -12,31 +12,33 @@
     tools:context="com.abdelmun3m.prototype.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progressDrawable="@drawable/progress_bar"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
+        android:src="@drawable/bump"
+        android:id="@+id/imageView2"
+        android:layout_alignLeft="@+id/progressBar2"
+        android:layout_alignStart="@+id/progressBar2" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+        android:text="   120m to reach bump"
         android:id="@+id/textView1"
         android:textSize="20dp"
-        android:layout_alignBottom="@+id/progressBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="65dp"
-        android:layout_marginRight="40dp"
-        android:layout_alignParentLeft="false"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
+    <ProgressBar
+        android:theme="@drawable/gradient_color"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="620dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/progressBar2" />
     <ExpandableListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,38 +46,10 @@
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
         android:divider="#a4c739"
         android:dividerHeight="0.5dp"
-        android:paddingTop="200dp"
+        android:paddingTop="250dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgface"
-        android:src="@drawable/facebook"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgtwitter"
-        android:src="@drawable/twitter"
-        android:layout_alignTop="@+id/imgface"
-        android:layout_toRightOf="@+id/imgface"
-        android:layout_toEndOf="@+id/imgface"
-        android:layout_alignParentBottom="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgGoogle"
-        android:src="@drawable/google"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/imgtwitter"
-        android:layout_toEndOf="@+id/imgtwitter"
-        android:layout_alignTop="@+id/imgtwitter" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,8 +61,16 @@
         android:id="@+id/textView3"
 
         android:layout_above="@+id/textView1"
-        android:layout_toRightOf="@+id/imgtwitter"
-        android:layout_toEndOf="@+id/imgtwitter" />
+        />
 
-
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_height="500dp"
+        android:layout_width="150dp"
+        android:src="@drawable/car"
+        android:id="@+id/view"
+        android:layout_alignBottom="@+id/progressBar2"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="5dp"/>
 </RelativeLayout>

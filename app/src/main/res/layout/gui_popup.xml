@@ -25,6 +25,13 @@
         android:buttonTint="@color/accent"
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10sp"
+        android:background="@color/divider" />
+
     <android.support.v7.widget.AppCompatCheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

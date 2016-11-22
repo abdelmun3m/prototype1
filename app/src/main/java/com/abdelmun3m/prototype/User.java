@@ -7,21 +7,4 @@ import com.google.firebase.database.DatabaseReference;
  */
 
 public class User {
-
-    public String name ;
-    public String sname;
-
-    public User(){
-
-    }
-    public User(String name , String s ){
-        this.name=name;
-        this.sname=s;
-    }
-
-    public void addNewuser(DatabaseReference r){
-
-        r.child("users").push().setValue(this);
-
-    }
 }

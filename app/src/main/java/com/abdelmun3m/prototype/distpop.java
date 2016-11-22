@@ -36,6 +36,5 @@ public class distpop extends Activity {
                 tv.setText("");
             }
         });
-
     }
 }

@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_alarm) {
-
+            startActivity(new Intent(MainActivity.this,alarm_time_popup.class));
         }  else if (id == R.id.nav_voice) {
-
+            startActivity(new Intent(MainActivity.this,Voice_popup.class));
         } else if (id == R.id.nav_gui) {
             startActivity(new Intent(MainActivity.this,guipop.class));
         }

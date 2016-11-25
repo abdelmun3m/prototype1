@@ -42,7 +42,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_toLeftOf="@+id/drop_down_option_menu"
-                android:src="@android:drawable/ic_delete" />
+                android:src="@android:drawable/ic_menu_edit" />
 
             <ImageView
                 android:id="@+id/drop_down_option_menu"
@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:src="@android:drawable/ic_menu_edit" />
+                android:src="@android:drawable/ic_delete" />
 
             <TextView
                 android:id="@+id/user_profile_name"

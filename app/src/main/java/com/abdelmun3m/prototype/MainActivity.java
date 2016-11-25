@@ -41,25 +41,7 @@ public class MainActivity extends AppCompatActivity
         Feature_list=new ArrayList<String>(Feature_category.keySet());
         adapter=new FeatureAdapter(this,Feature_category,Feature_list);
         Exp_List.setAdapter(adapter);
-      /*Exp_List.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                final  String selected=(String)adapter.getChild(groupPosition,childPosition);
-                switch (selected)
-                {
-                    case "Traffic Jam":
-                        startActivity(new Intent(MainActivity.this,distpop.class));
-                        break;
-                    case "Public_Service":
 
-                        break;
-
-                }
-
-            return  true;
-            }
-        });
-*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

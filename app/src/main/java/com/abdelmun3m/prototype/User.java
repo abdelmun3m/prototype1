@@ -1,29 +1,38 @@
 package com.abdelmun3m.prototype;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.PropertyName;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Abdelmunem on 11/4/2016.
  */
 
 public class User {
+
+//-----------------------------------------Properties-----------------------------------------------
     private String name;
     private String password;
     private String e_mail;
     private String governorate;
     private String city;
     private String id;
-
     private float distance_N;
     private float moving_Speed;
-
     private boolean authentication;
     private boolean notification_Mode;
     private boolean isMoving;
-
     private Location location;
+    //----------------------------------------------------------------------------------------------
 
 
+    //-------------------------------------Methods--------------------------------------------------
     public User(String name, String password, String e_mail,
                 String governorate, String city, String id, float distance_N,
                 float moving_Speed, boolean authentication, boolean notification_Mode,
@@ -147,5 +156,30 @@ public class User {
     public float calculate_speed(){return (float) .2;}
 
     public void get_user_data(String id){}
+    //----------------------------------------------------------------------------------------------
 
+
+
+    //----------------DataBase Interaction Methods--------------------------------------------------
+    public void addNewUser(DatabaseReference R, User u){
+        String id = R.child("user").push().getKey();
+        R.child("user").push().setValue(this);
+        this.id = id;
+    }
+    public ValueEventListener getUser(){
+
+        ValueEventListener UserListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User u = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("loadPost:onCancelled", ""+databaseError.toException());
+            }
+        };
+        return  UserListener;
+    }
+    //----------------------------------------------------------------------------------------------
 }

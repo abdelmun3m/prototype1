@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_distance) {
             startActivity(new Intent(MainActivity.this,distpop.class));
         } else if (id == R.id.nav_profile) {
-
+            startActivity(new Intent(MainActivity.this,ProfileScreenXMLUIDesign.class));
         } else if (id == R.id.nav_alarm) {
             startActivity(new Intent(MainActivity.this,alarm_time_popup.class));
         }  else if (id == R.id.nav_voice) {

@@ -11,7 +11,7 @@ import android.widget.TextView;
  */
 public class alarm_time_popup extends Activity {
     SeekBar seekbar;
-    int progress=30;
+    int progress=15;
     TextView progress_num;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class alarm_time_popup extends Activity {
         progress_num.setText("" + progress + "minutes");
 
 
-        seekbar.setMax(120);
+        seekbar.setMax(29);
         seekbar.setProgress(progress);
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

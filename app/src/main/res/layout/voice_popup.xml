@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_light">
+    android:background="@drawable/popup_style">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,6 +14,13 @@
         android:id="@+id/tv_voice"
         android:layout_gravity="center_horizontal" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10sp"
+        android:background="@color/divider" />
+
     <android.support.v7.widget.AppCompatCheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +28,7 @@
         android:textSize="22dp"
         android:id="@+id/voiceChk"
         android:checked="true"
+        android:layout_marginTop="25sp"
         android:buttonTint="@color/accent"
         />
 </LinearLayout>

@@ -40,7 +40,6 @@ public class LvQTrain {
        w1=obstacles.get(0);
         w2=NonObstacles.get(0);
     }
-
     public  void Train(List<LvQTrain> temp) {
         for (LvQTrain input : temp) {
             String T = input.classType;

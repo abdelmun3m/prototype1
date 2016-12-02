@@ -61,7 +61,7 @@ public class Obstacle {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Error : ", ""+databaseError.toException());
+
             }
         };
         this.ObstacleListener = ObstacleListener ;

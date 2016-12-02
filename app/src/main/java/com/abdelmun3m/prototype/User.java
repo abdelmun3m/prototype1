@@ -188,7 +188,6 @@ public class User {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("loadPost:onCancelled", ""+databaseError.toException());
             }
         };
         this.UserListener = UserListener;

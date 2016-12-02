@@ -13,6 +13,7 @@ public class obstacleDB {
         this.danger_Rate = danger_Rate ;
         this.existing_Rate = existing_Rate;
         this.type = type;
+
     }
     public  obstacleDB(){
 

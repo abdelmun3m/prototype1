@@ -28,6 +28,7 @@ public class userDB {
         this.distance_N = distance_N;
          this.authentication = authentication;
           this.notification_Mode = notification_Mode;
+        
     }
     userDB(){
 

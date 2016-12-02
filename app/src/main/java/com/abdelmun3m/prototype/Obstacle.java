@@ -19,15 +19,17 @@ public class Obstacle {
     private String id;
     //private int location_id;
     private int type;
+    private obstacleDB ODB;
+   public ValueEventListener ObstacleListener ;
     //----------------------------------------------------------------------------------------------
 
 
     //-------------------------Methods--------------------------------------------------------------
-    public Obstacle(float danger_Rate, float existing_Rate, String id, int type) {
-        this.danger_Rate = danger_Rate;
-        this.existing_Rate = existing_Rate;
-        this.id = id;
-        this.type = type;
+    public Obstacle(float danger_Rate, float existing_Rate, int type) {
+        this.ODB = new obstacleDB(danger_Rate , existing_Rate,type);
+    }
+    public  Obstacle(String id){
+        this.ODB = getObstacle(id);
     }
 
     public Obstacle(){
@@ -44,17 +46,17 @@ public class Obstacle {
 
 
     //--------------------------DataBase Interaction Methods ---------------------------------------
-    public void addNewObstacle(DatabaseReference R, Obstacle o){
+    public void addNewObstacle(DatabaseReference R){
         String id = R.child("obstacle").push().getKey();
-        R.child("obstacle").push().setValue(this);
+        R.child("obstacle").push().setValue(this.ODB);
         this.id = id;
     }
-    public ValueEventListener getObstacle(){
+    public obstacleDB getObstacle(final String id){
 
-        ValueEventListener UserListener = new ValueEventListener() {
+        ValueEventListener ObstacleListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Obstacle o = dataSnapshot.getValue(Obstacle.class);
+               Obstacle.this.ODB = dataSnapshot.child("obstacle").child(id).getValue(obstacleDB.class);
             }
 
             @Override
@@ -62,7 +64,8 @@ public class Obstacle {
                 Log.d("Error : ", ""+databaseError.toException());
             }
         };
-        return  UserListener;
+        this.ObstacleListener = ObstacleListener ;
+        return  this.ODB;
     }
     //----------------------------------------------------------------------------------------------
 }

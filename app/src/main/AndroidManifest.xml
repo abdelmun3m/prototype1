@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.abdelmun3m.prototype">
-    <!-- force include firebase Ui library instate of the minsdk required in it(17) and the minSDK in project(15) -->
+    package="com.abdelmun3m.prototype"> <!-- force include firebase Ui library instate of the minsdk required in it(17) and the minSDK in project(15) -->
     <uses-sdk tools:overrideLibrary="com.firebase.ui.auth" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,21 +20,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".distpop"
-            android:theme="@style/AppTheme.CustomTheme">
+        <activity
+            android:name=".distpop"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".guipop"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".Voice_popup"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".alarm_time_popup"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".databaseTest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </activity>
-        <activity android:name=".guipop"
-            android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
-        <activity android:name=".Voice_popup"
-            android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
-        <activity android:name=".alarm_time_popup"
-            android:theme="@style/AppTheme.CustomTheme">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

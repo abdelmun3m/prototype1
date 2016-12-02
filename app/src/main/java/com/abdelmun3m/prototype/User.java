@@ -1,46 +1,59 @@
 package com.abdelmun3m.prototype;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.PropertyName;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Abdelmunem on 11/4/2016.
  */
 
+
 public class User {
+
+    //-----------------------------------------Properties-----------------------------------------------
     private String name;
     private String password;
     private String e_mail;
     private String governorate;
     private String city;
     private String id;
-
     private float distance_N;
     private float moving_Speed;
-
-    private boolean authentication;
-    private boolean notification_Mode;
+    private int authentication;
+    private int notification_Mode;
     private boolean isMoving;
-
     private Location location;
+    private userDB UDB;
+    public ValueEventListener UserListener ;
+    //----------------------------------------------------------------------------------------------
 
 
+    //-------------------------------------Methods--------------------------------------------------
     public User(String name, String password, String e_mail,
-                String governorate, String city, String id, float distance_N,
-                float moving_Speed, boolean authentication, boolean notification_Mode,
-                boolean isMoving, Location location) {
-        this.name = name;
-        this.password = password;
-        this.e_mail = e_mail;
-        this.governorate = governorate;
-        this.city = city;
-        this.id = id;
-        this.distance_N = distance_N;
-        this.moving_Speed = moving_Speed;
-        this.authentication = authentication;
-        this.notification_Mode = notification_Mode;
-        this.isMoving = isMoving;
-        this.location = location;
+                String governorate, String city, float distance_N,
+                int authentication, int notification_Mode
+                ){
+      this.UDB = new userDB(name , password , e_mail , governorate , city ,distance_N , authentication , notification_Mode);
     }
+    public User(String Id){
+        this.UDB = getUser(Id);
+        this.name = this.UDB.name;
+        this.password = this.UDB.password;
+        this.e_mail = this.UDB.e_mail;
+        this.governorate = this.UDB.governorate;
+        this.city = this.UDB.city;
+        this.distance_N = this.UDB.distance_N;
+        this.authentication = this.UDB.authentication;
+        this.notification_Mode = this.UDB.notification_Mode;
+    }
+
     public User(){
 
     }
@@ -109,19 +122,19 @@ public class User {
         this.moving_Speed = moving_Speed;
     }
 
-    public boolean isAuthentication() {
+    public int isAuthentication() {
         return authentication;
     }
 
-    public void setAuthentication(boolean authentication) {
+    public void setAuthentication(int authentication) {
         this.authentication = authentication;
     }
 
-    public boolean isNotification_Mode() {
+    public int isNotification_Mode() {
         return notification_Mode;
     }
 
-    public void setNotification_Mode(boolean notification_Mode) {
+    public void setNotification_Mode(int notification_Mode) {
         this.notification_Mode = notification_Mode;
     }
 
@@ -147,5 +160,39 @@ public class User {
     public float calculate_speed(){return (float) .2;}
 
     public void get_user_data(String id){}
+    //----------------------------------------------------------------------------------------------
 
+
+
+    //----------------DataBase Interaction Methods--------------------------------------------------
+  /*  public void addNewUser(DatabaseReference R, User u){
+        String id = R.child("user").push().getKey();
+        R.child("user").push().setValue(this);
+        this.id = id;
+    }*/
+
+      public void addNewUser(DatabaseReference R){
+        String id = R.child("user").push().getKey();
+        R.child("user").push().setValue(this.UDB);
+        this.id = id;
+    }
+
+
+    public userDB getUser(final String id){
+
+        ValueEventListener UserListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                 User.this.UDB = dataSnapshot.child("user").child(id).getValue(userDB.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("loadPost:onCancelled", ""+databaseError.toException());
+            }
+        };
+        this.UserListener = UserListener;
+        return  this.UDB;
+    }
+    //----------------------------------------------------------------------------------------------
 }

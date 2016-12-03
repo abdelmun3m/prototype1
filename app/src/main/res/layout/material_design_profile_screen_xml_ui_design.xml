@@ -43,7 +43,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_toLeftOf="@+id/drop_down_option_menu"
                 android:src="@android:drawable/ic_menu_edit" />
-
             <ImageView
                 android:id="@+id/drop_down_option_menu"
                 android:layout_width="30dp"

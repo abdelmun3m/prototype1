@@ -26,7 +26,6 @@ public class alarm_time_popup extends Activity {
         progress_num=(TextView)findViewById(R.id.prog_num);
         progress_num.setText("" + progress + "minutes");
 
-
         seekbar.setMax(29);
         seekbar.setProgress(progress);
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

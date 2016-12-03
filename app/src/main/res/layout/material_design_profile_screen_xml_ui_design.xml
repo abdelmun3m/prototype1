@@ -34,7 +34,6 @@
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
-
             <ImageView
                 android:id="@+id/add_friend"
                 android:layout_width="30dp"

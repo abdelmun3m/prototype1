@@ -21,6 +21,14 @@ public class LvQTrain {
         this.lvqinput=lvqinput;
     }
    /* public LvQTrain( double sekwenessX,double KurtosisX,double sumOflagsX,double sekwenessY
+    public double sekwenessX,KurtosisX,sumOflagsX,sekwenessY,KurtosisY,sumOflagsY,sekwenessZ,KurtosisZ,sumOflagsZ;
+    public String classType;
+    public  double alpha=0.1;
+    public   ArrayList<LvQTrain> obstacles=new ArrayList<LvQTrain>();
+    public  ArrayList<LvQTrain> NonObstacles=new ArrayList<LvQTrain>();
+    public LvQTrain w1,w2;
+    public LvQTrain( double sekwenessX,double KurtosisX,double sumOflagsX,double sekwenessY
+
             ,double KurtosisY,double sumOflagsY,double sekwenessZ,double KurtosisZ,double sumOflagsZ ,String classType)
     {
         this.sekwenessX=sekwenessX;
@@ -39,6 +47,7 @@ public class LvQTrain {
     {
         for(int i=0;i<x.size();i++) {
             if (x.get(i).classType == 1)
+
                 obstacles.add(x.get(i));
             else
                 NonObstacles.add(x.get(i));
@@ -60,6 +69,7 @@ public class LvQTrain {
             } else {
                 D = D2;
                 c = 2;
+
             }
             if (c == T && D == D1)
                 updateWeight(true, input, w1);
@@ -73,6 +83,7 @@ public class LvQTrain {
         }
     }
     public  double CalcDistance(LvqInput w,LvqInput x)
+
     {
         double D=Math.sqrt((Math.pow(w.sekwenessX,2)-Math.pow(x.sekwenessX,2))+(Math.pow(w.KurtosisX,2)-Math.pow(x.KurtosisX,2))+
                 (Math.pow(w.sumOflagsX,2)-Math.pow(x.sumOflagsX,2))+(Math.pow(w.sekwenessY,2)-Math.pow(x.sekwenessY,2))+

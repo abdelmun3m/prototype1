@@ -9,6 +9,18 @@ import java.util.List;
 
 public class LvQTrain {
 
+  // public double sekwenessX,KurtosisX,sumOflagsX,sekwenessY,KurtosisY,sumOflagsY,sekwenessZ,KurtosisZ,sumOflagsZ;
+  // public String classType;
+    public LvqInput lvqinput;
+   public  double alpha=0.1;
+    public   ArrayList<LvqInput> obstacles=new ArrayList<LvqInput>();
+    public  ArrayList<LvqInput> NonObstacles=new ArrayList<LvqInput>();
+    public LvqInput w1,w2;
+    public LvQTrain(LvqInput lvqinput)
+    {
+        this.lvqinput=lvqinput;
+    }
+   /* public LvQTrain( double sekwenessX,double KurtosisX,double sumOflagsX,double sekwenessY
     public double sekwenessX,KurtosisX,sumOflagsX,sekwenessY,KurtosisY,sumOflagsY,sekwenessZ,KurtosisZ,sumOflagsZ;
     public String classType;
     public  double alpha=0.1;
@@ -16,6 +28,7 @@ public class LvQTrain {
     public  ArrayList<LvQTrain> NonObstacles=new ArrayList<LvQTrain>();
     public LvQTrain w1,w2;
     public LvQTrain( double sekwenessX,double KurtosisX,double sumOflagsX,double sekwenessY
+
             ,double KurtosisY,double sumOflagsY,double sekwenessZ,double KurtosisZ,double sumOflagsZ ,String classType)
     {
         this.sekwenessX=sekwenessX;
@@ -29,30 +42,34 @@ public class LvQTrain {
         this.sumOflagsZ=sumOflagsZ;
         this.classType=classType;
     }
-    public  void defineType(ArrayList<LvQTrain> x)
+    */
+    public  void defineType(ArrayList<LvqInput> x)
     {
         for(int i=0;i<x.size();i++) {
-            if (x.get(i).classType.toLowerCase() == "obstacles")
+            if (x.get(i).classType == 1)
+
                 obstacles.add(x.get(i));
             else
                 NonObstacles.add(x.get(i));
         }
-        w1=obstacles.get(0);
+       w1=obstacles.get(0);
         w2=NonObstacles.get(0);
     }
-    public  void Train(List<LvQTrain> temp) {
-        for (LvQTrain input : temp) {
-            String T = input.classType;
+
+    public  void Train(List<LvqInput> temp) {
+        for (LvqInput input : temp) {
+            int T = input.classType;
             double D1 = CalcDistance(w1, input);
             double D2 = CalcDistance(w2, input);
             double D;
-            String c;
+            int c;
             if (D1 < D2) {
                 D = D1;
-                c = "obstacles";
+                c = 1;
             } else {
                 D = D2;
-                c = "NonObstacles";
+                c = 2;
+
             }
             if (c == T && D == D1)
                 updateWeight(true, input, w1);
@@ -61,11 +78,12 @@ public class LvQTrain {
             else if (c != T && D == D1)
                 updateWeight(false, input, w1);
             else
-                updateWeight(false, input, w1);
+                updateWeight(false, input, w2);
 
         }
     }
-    public  double CalcDistance(LvQTrain w,LvQTrain x)
+    public  double CalcDistance(LvqInput w,LvqInput x)
+
     {
         double D=Math.sqrt((Math.pow(w.sekwenessX,2)-Math.pow(x.sekwenessX,2))+(Math.pow(w.KurtosisX,2)-Math.pow(x.KurtosisX,2))+
                 (Math.pow(w.sumOflagsX,2)-Math.pow(x.sumOflagsX,2))+(Math.pow(w.sekwenessY,2)-Math.pow(x.sekwenessY,2))+
@@ -74,44 +92,44 @@ public class LvQTrain {
                 (Math.pow(w.sumOflagsZ,2)-Math.pow(x.sumOflagsZ,2)));
         return D;
     }
-    public  void updateWeight(boolean isRight,LvQTrain x ,LvQTrain w)
+    public  void updateWeight(boolean isRight,LvqInput x ,LvqInput w)
+   {
+       double[] d={(x.sekwenessX-w.sekwenessX)*alpha,(x.KurtosisX-w.KurtosisX)*alpha,(x.sumOflagsX-w.sumOflagsX)*alpha,
+               (x.sekwenessY-w.sekwenessY)*alpha,(x.KurtosisY-w.KurtosisY)*alpha,(x.sumOflagsY-w.sumOflagsY)*alpha,
+               (x.sekwenessZ-w.sekwenessZ)*alpha,(x.KurtosisZ-w.KurtosisZ)*alpha,(x.sumOflagsZ-w.sumOflagsZ)*alpha};
+    if(isRight)
     {
-        double[] d={(x.sekwenessX-w.sekwenessX)*alpha,(x.KurtosisX-w.KurtosisX)*alpha,(x.sumOflagsX+w.sumOflagsX)*alpha,
-                (x.sekwenessY-w.sekwenessY)*alpha,(x.KurtosisY-w.KurtosisY)*alpha,(x.sumOflagsY+w.sumOflagsY)*alpha,
-                (x.sekwenessZ-w.sekwenessZ)*alpha,(x.KurtosisZ-w.KurtosisZ)*alpha,(x.sumOflagsZ+w.sumOflagsZ)*alpha};
-        if(isRight)
-        {
-            w.sekwenessX+=d[0];
-            w.KurtosisX+=d[1];
-            w.sumOflagsX+=d[2];
-            w.sekwenessY+=d[3];
-            w.KurtosisY+=d[4];
-            w.sumOflagsY+=d[5];
-            w.sekwenessZ+=d[6];
-            w.KurtosisZ+=d[7];
-            w.sumOflagsZ+=d[8];
-        }
-        else
-        {
-            w.sekwenessX-=d[0];
-            w.KurtosisX-=d[1];
-            w.sumOflagsX-=d[2];
-            w.sekwenessY-=d[3];
-            w.KurtosisY-=d[4];
-            w.sumOflagsY-=d[5];
-            w.sekwenessZ-=d[6];
-            w.KurtosisZ-=d[7];
-            w.sumOflagsZ-=d[8];
-        }
+      w.sekwenessX+=d[0];
+      w.KurtosisX+=d[1];
+      w.sumOflagsX+=d[2];
+        w.sekwenessY+=d[3];
+        w.KurtosisY+=d[4];
+        w.sumOflagsY+=d[5];
+        w.sekwenessZ+=d[6];
+        w.KurtosisZ+=d[7];
+        w.sumOflagsZ+=d[8];
     }
-    public double[] getW1()
+       else
     {
-        double[] w={w1.sekwenessX,w1.KurtosisX,w1.sumOflagsX,w1.sekwenessY,w1.KurtosisY,w1.sumOflagsY,w1.sekwenessZ,w1.KurtosisZ,w1.sumOflagsZ};
-        return w;
+        w.sekwenessX-=d[0];
+        w.KurtosisX-=d[1];
+        w.sumOflagsX-=d[2];
+        w.sekwenessY-=d[3];
+        w.KurtosisY-=d[4];
+        w.sumOflagsY-=d[5];
+        w.sekwenessZ-=d[6];
+        w.KurtosisZ-=d[7];
+        w.sumOflagsZ-=d[8];
     }
-    public double[] getW2()
+   }
+    public LvqInput getW1()
     {
-        double[] w={w2.sekwenessX,w2.KurtosisX,w2.sumOflagsX,w2.sekwenessY,w2.KurtosisY,w2.sumOflagsY,w2.sekwenessZ,w2.KurtosisZ,w2.sumOflagsZ};
-        return w;
+        //double[] w={w1.sekwenessX,w1.KurtosisX,w1.sumOflagsX,w1.sekwenessY,w1.KurtosisY,w1.sumOflagsY,w1.sekwenessZ,w1.KurtosisZ,w1.sumOflagsZ};
+        return w1;
+    }
+    public LvqInput getW2()
+    {
+        //double[] w={w2.sekwenessX,w2.KurtosisX,w2.sumOflagsX,w2.sekwenessY,w2.KurtosisY,w2.sumOflagsY,w2.sekwenessZ,w2.KurtosisZ,w2.sumOflagsZ};
+        return w2;
     }
 }

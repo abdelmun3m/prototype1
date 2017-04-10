@@ -6,12 +6,12 @@
     <uses-sdk tools:overrideLibrary="com.firebase.ui.auth" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,22 +20,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".distpop"
-            android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
-        <activity android:name=".guipop"
-            android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
-        <activity android:name=".Voice_popup"
-            android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
-        <activity android:name=".alarm_time_popup"
-            android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
+        <activity
+            android:name=".LvqXml"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".distance_popup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".alarm_popup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".notification_popup"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

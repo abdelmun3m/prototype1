@@ -20,15 +20,9 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
-    <!--ProgressBar
-        android:theme="@style/CircularProgress"
+        app:menu="@menu/activity_main_drawer"
+        app:theme="@style/navigationDrawable"/>
 
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        />-->
 </android.support.v4.widget.DrawerLayout>
 
 

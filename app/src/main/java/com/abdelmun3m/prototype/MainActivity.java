@@ -1,10 +1,17 @@
 package com.abdelmun3m.prototype;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +21,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,33 +35,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private TextView text;
-    HashMap<String,List<String>> Feature_category;
-    List<String> Feature_list;
-    ExpandableListView Exp_List;
-    FeatureAdapter adapter;
+    Fragment CurrentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Exp_List=(ExpandableListView)findViewById(R.id.expandableListView);
-        Feature_category=DataListProvider.getInfo();
-        Feature_list=new ArrayList<String>(Feature_category.keySet());
-        adapter=new FeatureAdapter(this,Feature_category,Feature_list);
-        Exp_List.setAdapter(adapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Bumpo");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        ChangeCurrentFragment("Main");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,8 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
 
     }
 
@@ -93,10 +84,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -106,20 +97,42 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_distance) {
-            startActivity(new Intent(MainActivity.this,distpop.class));
-        } else if (id == R.id.nav_profile) {
-            startActivity(new Intent(MainActivity.this,ProfileScreenXMLUIDesign.class));
-        } else if (id == R.id.nav_alarm) {
-            startActivity(new Intent(MainActivity.this,alarm_time_popup.class));
-        }  else if (id == R.id.nav_voice) {
-            startActivity(new Intent(MainActivity.this,Voice_popup.class));
-        } else if (id == R.id.nav_gui) {
-            startActivity(new Intent(MainActivity.this,guipop.class));
-        }
+       if (id == R.id.nav_PublicService) {
+            //startActivity(new Intent(MainActivity.this,distpop.class));
+        } else if (id == R.id.nav_TrafficJam) {
+           // startActivity(new Intent(MainActivity.this,ProfileScreenXMLUIDesign.class));
+        } else if (id == R.id.nav_Profile) {
+           ChangeCurrentFragment("Profile");
+        }  else if (id == R.id.nav_settings) {
+           ChangeCurrentFragment("settings");
+        } else if (id == R.id.nav_Feedback) {
+           // startActivity(new Intent(MainActivity.this,guipop.class));
+        }else if (id == R.id.nav_Logout) {
+           startActivity(new Intent(MainActivity.this,LoginActivity.class));
+       }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
+
     }
-}
+    public  void ChangeCurrentFragment(String name){
+
+        if(name.equals("Main")){
+            CurrentFragment = new Content_Main();
+        }else if (name.equals("Profile")){
+            CurrentFragment=new ProfileFragment();
+        }else if(name.equals("settings")){
+            CurrentFragment= new SettingsFragment();
+        }else if(name.equals("About")){
+          //  CurrentFragment=new About();
+
+        }else if(name.equals("ContactUs")){
+           // CurrentFragment=new ContactUS();
+        }
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container,CurrentFragment);
+        fragmentTransaction.commit();
+    }
+    }

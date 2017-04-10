@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_distance"
-            android:icon="@drawable/ic_menu_diatance"
-            android:title="Obstacles Distance N" />
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_Profile"
-            android:title="Profile" />
-        <item
-            android:id="@+id/nav_alarm"
-            android:icon="@drawable/ic_menu_Alarm"
-            android:title="Alarm" />
-    </group>
-    <item android:title="Notification">
+    <item android:title="Features">
         <menu>
             <item
-                android:id="@+id/nav_voice"
-                android:icon="@drawable/ic_menu_Voice"
-                android:title="Voice" />
+                android:id="@+id/nav_PublicService"
+                android:icon="@drawable/streamline"
+                android:title="Public Services"
+                />
             <item
-                android:id="@+id/nav_gui"
-                android:icon="@drawable/ic_menu_GUI"
-                android:title="GUI" />
+                android:id="@+id/nav_TrafficJam"
+                android:icon="@drawable/stop_sign_road_traffic_caution_alert"
+                android:title="Traffic jam " />
         </menu>
     </item>
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_Profile"
+            android:icon="@drawable/users"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_Feedback"
+            android:icon="@drawable/pinterest_social_connect_account_profile"
+            android:title="Feedback" />
+        <item
+            android:id="@+id/nav_Logout"
+            android:icon="@drawable/exit"
+            android:title="Logout" />
+    </group>
+
 
 </menu>

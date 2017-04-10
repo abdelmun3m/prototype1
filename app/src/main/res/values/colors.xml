@@ -15,5 +15,7 @@
     <color name="icons">#FFFFFF</color>
 
     <color name="divider">#BDBDBD</color>
+    <color name="Pfbc">#f5f5f5</color>
+   <color name="StartProgress">#4caf50</color>
 
 </resources>

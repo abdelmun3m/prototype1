@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.PropertyName;
 import com.google.firebase.database.ValueEventListener;
 
@@ -27,6 +28,7 @@ public class User {
     private boolean isMoving;
     private Location location;
     private userDB UDB;
+    private DatabaseReference userDBReference = FirebaseDatabase.getInstance().getReference().child("user");
     public ValueEventListener UserListener ;
     //----------------------------------------------------------------------------------------------
 
@@ -38,6 +40,7 @@ public class User {
                 ){
       this.UDB = new userDB(name , password , e_mail , governorate , city ,distance_N , authentication , notification_Mode);
     }
+
     public User(String Id){
         this.UDB = getUser(Id);
         this.name = this.UDB.name;
@@ -60,6 +63,7 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+        this.UDB.name = name;
     }
 
     public String getPassword() {
@@ -68,6 +72,8 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        this.UDB.password = password;
+
     }
 
     public String getE_mail() {
@@ -75,24 +81,16 @@ public class User {
     }
 
     public void setE_mail(String e_mail) {
-        this.e_mail = e_mail;
-    }
+        this.e_mail = e_mail;}
 
     public String getGovernorate() {
-        return governorate;
-    }
+        return governorate;}
 
-    public void setGovernorate(String governorate) {
-        this.governorate = governorate;
-    }
+    public void setGovernorate(String governorate) {this.governorate = governorate;}
 
-    public String getCity() {
-        return city;
-    }
+    public String getCity() {return city;}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public void setCity(String city) {this.city = city;}
 
     public String getId() {
         return id;
@@ -167,15 +165,18 @@ public class User {
         this.id = id;
     }*/
 
-      public void addNewUser(DatabaseReference R){
-        String id = R.child("user").push().getKey();
-        R.child("user").push().setValue(this.UDB);
+      public void addNewUser(){
+        String id = this.userDBReference.push().getKey();
+          this.userDBReference.push().setValue(this.UDB);
         this.id = id;
     }
 
 
     public userDB getUser(final String id){
 
+        /**Event Listener to read the data in the user listener reference only once
+         * Using addListenerForSingleValueEvent() it will  it triggers once and then does not trigger again
+         * */
         ValueEventListener UserListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -187,7 +188,16 @@ public class User {
             }
         };
         this.UserListener = UserListener;
+
+        this.userDBReference.addListenerForSingleValueEvent(UserListener);
         return  this.UDB;
     }
+    public void UpdateRecord(String record , String value){
+        this.userDBReference.child(this.id).child(record).setValue(value);
+    }
+    public void RemoveRecord(String record){
+        this.userDBReference.child(this.id).child(record).removeValue();
+    }
+
     //----------------------------------------------------------------------------------------------
 }

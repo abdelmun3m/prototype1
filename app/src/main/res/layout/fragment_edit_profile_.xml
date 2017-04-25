@@ -15,8 +15,8 @@
             android:fitsSystemWindows="true"
             android:background="@drawable/road">
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/imageview_profile"
                 android:layout_marginTop="80dp"

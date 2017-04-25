@@ -1,13 +1,8 @@
 package com.abdelmun3m.prototype;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.PropertyName;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -27,6 +22,7 @@ public class User {
     private boolean isMoving;
     private Location location;
     private userDB UDB;
+    int  x;
     public ValueEventListener UserListener ;
     //----------------------------------------------------------------------------------------------
 

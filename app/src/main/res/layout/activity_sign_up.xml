@@ -21,12 +21,12 @@
         android:id="@+id/imageView" />
 
     <EditText
+        android:id="@+id/username"
         android:layout_width="match_parent"
-        android:inputType="textPersonName"
+        android:layout_height="45dp"
         android:ems="10"
-        android:id="@+id/editText6"
         android:hint="Username"
-        android:layout_height="45dp" />
+        android:inputType="textPersonName" />
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -64,12 +64,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="45dp"
                     android:hint="Password"
                     android:imeActionId="@+id/login"
@@ -87,12 +88,12 @@
                 android:id="@+id/textView4" />
 
             <EditText
+                android:id="@+id/confirmpass"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/editText2"
-                android:hint="Comfirm Password" />
+                android:hint="Comfirm Password"
+                android:inputType="textPassword" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -105,36 +106,35 @@
                 android:layout_height="11.25dp" />
 
             <TextView
-                android:text="Choose a Governorate:"
                 android:layout_width="match_parent"
                 android:layout_height="22.5dp"
-                android:id="@+id/textView"
-                android:textSize="18sp"
-                tools:textAlignment="inherit"
+                android:layout_marginLeft="3dp"
                 android:freezesText="false"
-                android:layout_marginLeft="3dp" />
+                android:text="Choose a Governorate:"
+                android:textSize="18sp"
+                tools:textAlignment="inherit" />
 
             <Spinner
+                android:id="@+id/covernorateSpanner"
                 android:layout_width="match_parent"
-                android:id="@+id/spinner2"
-                android:entries="@array/governorates"
-                android:prompt="@string/chooseGovernorate"
+                android:layout_height="33.75dp"
                 android:dropDownWidth="wrap_content"
-                android:layout_height="33.75dp" />
+                android:entries="@array/governorates"
+                android:prompt="@string/chooseGovernorate" />
 
         </LinearLayout>
     </ScrollView>w
 
     <Button
-        android:id="@+id/email_sign_in_button"
+        android:id="@+id/btnSignUP"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="#DD574B"
         android:text="Sign Up"
-        android:textSize="21sp"
         android:textColor="#FFFFFF"
-        android:textStyle="normal|bold"
-        android:background="#DD574B" />
+        android:textSize="21sp"
+        android:textStyle="normal|bold" />
 
 </LinearLayout>

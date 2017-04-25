@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:background="@color/primary_light"
     android:padding="40dp">
+
+
     <ImageView android:src="@drawable/logo2"
         android:layout_width="wrap_content"
         android:layout_height="72dp"
@@ -34,7 +36,6 @@
         android:text="LogIn"
         android:textColor="#FFF"
         android:layout_marginTop="30dp"
-
         android:id="@+id/btnLogin"
         android:background="@drawable/selector_xml_btn_yellow"
         android:layout_gravity="center_horizontal"

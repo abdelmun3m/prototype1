@@ -3,6 +3,7 @@ package com.abdelmun3m.prototype;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +13,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "myTESTLogin";
     private String username, password;
     private EditText emailEditText;
     private EditText passEditText;
@@ -26,13 +35,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
+    FirebaseAuth myAuth ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        //------------------------DB_S---------------------------------
+        myAuth = FirebaseAuth.getInstance();
+        if (myAuth.getCurrentUser() != null){
+            Intent j = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(j);
+            this.finish();
+        }
+        //------------------------DB_E------------------------------------
         // Address the email and password field
         ok = (Button) findViewById(R.id.btnLogin);
         ok.setOnClickListener(this);
@@ -50,7 +67,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
-
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin == true) {
             emailEditText.setText(loginPreferences.getString("username", ""));
@@ -76,12 +92,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginPrefsEditor.clear();
                 loginPrefsEditor.commit();
             }
-
             doSomethingElse();
         }
     }
 
     public void doSomethingElse() {
+
+
         final String email = emailEditText.getText().toString();
         if (!isValidEmail(email)) {
             //Set error message for email field
@@ -96,8 +113,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (isValidEmail(email) && isValidPassword(pass)) {
             // Validation Completed
-            Intent j = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(j);
+            Pass_Mail_Login(pass,email);
+
         }
 
     }
@@ -118,9 +135,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return true;
         }
         return false;
+    }
 
-
-
+    private void Pass_Mail_Login(String pass , String mail){
+        myAuth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "faild to SignIN"+
+                            task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
+                }
+                if(task.isSuccessful() &&  task.isComplete()){
+                    Intent j = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(j);
+                    LoginActivity.this.finish();
+                }
+            }
+        });
 
     }
 

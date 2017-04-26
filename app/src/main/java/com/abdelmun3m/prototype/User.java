@@ -27,6 +27,7 @@ public class User {
     private int notification_Mode;
     private boolean isMoving;
     private Location location;
+    private String Profile_Pic;
     private userDB UDB;
     private DatabaseReference userDBReference = FirebaseDatabase.getInstance().getReference().child("user");
     public ValueEventListener UserListener ;
@@ -54,6 +55,7 @@ public class User {
         this.distance_N = this.UDB.distance_N;
         this.authentication = this.UDB.authentication;
         this.notification_Mode = this.UDB.notification_Mode;
+        this.Profile_Pic = this.UDB.Profile_Pic;
     }
 
     public String getName() {
@@ -82,6 +84,12 @@ public class User {
     public void setE_mail(String e_mail) {
         this.e_mail = e_mail;}
 
+    public String getProfile_piv(){
+        return this.Profile_Pic;
+    }
+    public  void setProfile_Pic(String p){
+        this.Profile_Pic = p;
+    }
     public String getGovernorate() {
         return governorate;}
 
@@ -159,35 +167,4 @@ public class User {
           this.userDBReference.child(this.id).setValue(this.UDB);
     }
 
-
-
-
-    public userDB getUser(final String id){
-
-        /**Event Listener to read the data in the user listener reference only once
-         * Using addListenerForSingleValueEvent() it will  it triggers once and then does not trigger again
-         * */
-        ValueEventListener UserListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                 User.this.UDB = dataSnapshot.child("user").child(id).getValue(userDB.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-        this.UserListener = UserListener;
-
-        this.userDBReference.addListenerForSingleValueEvent(UserListener);
-        return  this.UDB;
-    }
-    public void UpdateRecord(String record , String value){
-        this.userDBReference.child(this.id).child(record).setValue(value);
-    }
-    public void RemoveRecord(String record){
-        this.userDBReference.child(this.id).child(record).removeValue();
-    }
-
-    //----------------------------------------------------------------------------------------------
 }

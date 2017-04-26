@@ -42,8 +42,10 @@ public class User {
       this.UDB = new userDB(name , password , e_mail , governorate , city ,distance_N , authentication , notification_Mode,PIC);
     }
 
-    public User(String Id){
-        this.UDB = getUser(Id);
+
+    public User(userDB user,String id){
+        this.UDB = user;
+        this.id = id;
         this.name = this.UDB.name;
         this.password = this.UDB.password;
         this.e_mail = this.UDB.e_mail;
@@ -151,20 +153,13 @@ public class User {
     public float calculate_speed(){return (float) .2;}
 
     public void get_user_data(String id){}
-    //----------------------------------------------------------------------------------------------
 
-
-
-    //----------------DataBase Interaction Methods--------------------------------------------------
-  /*  public void addNewUser(DatabaseReference R, User u){
-        String id = R.child("user").push().getKey();
-        R.child("user").push().setValue(this);
-        this.id = id;
-    }*/
 
       public void addNewUser(){
           this.userDBReference.child(this.id).setValue(this.UDB);
     }
+
+
 
 
     public userDB getUser(final String id){

@@ -122,12 +122,14 @@ public class edit_profile_Fragment extends Fragment {
     }
 
     public void updateView(){
+        Log.d(TAG,"updateView : "+ CurrentUser.getName() + " "+CurrentUser.getE_mail()+" "+CurrentUser.getCity()+" "+CurrentUser.getProfile_pic()) ;
         Glide.with(imageView.getContext())
                 .load(CurrentUser.getProfile_pic())
                 .into(imageView);
-        if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}
-        if(CurrentUser.getE_mail() != null){Email.setText(CurrentUser.getE_mail());}
-        if(CurrentUser.getCity() != null){city.setText(CurrentUser.getCity());}
+       // if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}
+        //if(CurrentUser.getE_mail() != null){Email.setText(CurrentUser.getE_mail());}
+        //if(CurrentUser.getCity() != null){city.setText(CurrentUser.getCity());}
+
     }
 
 }

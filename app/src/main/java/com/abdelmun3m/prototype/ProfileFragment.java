@@ -52,7 +52,7 @@ public class ProfileFragment extends Fragment {
         Glide.with(imageViewProfile.getContext())
                 .load(CurrentUser.getProfile_pic())
                 .into(imageViewProfile);
-        if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}
+       // if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}
         if(CurrentUser.getE_mail() != null){Email.setText(CurrentUser.getE_mail());}
         if(CurrentUser.getCity() != null){city.setText(CurrentUser.getCity());}
     }

@@ -29,7 +29,7 @@ public class User {
     private Location location;
     private String Profile_Pic;
     private userDB UDB;
-    private DatabaseReference userDBReference = FirebaseDatabase.getInstance().getReference().child("user");
+    public DatabaseReference userDBReference = FirebaseDatabase.getInstance().getReference().child("user");
     public ValueEventListener UserListener ;
     //----------------------------------------------------------------------------------------------
 
@@ -84,11 +84,13 @@ public class User {
     public void setE_mail(String e_mail) {
         this.e_mail = e_mail;}
 
-    public String getProfile_piv(){
+    public String getProfile_pic(){
         return this.Profile_Pic;
     }
     public  void setProfile_Pic(String p){
         this.Profile_Pic = p;
+        this.userDBReference.child(this.id).setValue(p);
+
     }
     public String getGovernorate() {
         return governorate;}

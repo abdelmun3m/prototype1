@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(j);
             this.finish();
         }else {
-            getCurrentUser();
+            if(CurrentUser == null){
+                getCurrentUser();
+            }
         }
         //--------------------DB_E--------------------------------
 
@@ -145,7 +147,9 @@ public class MainActivity extends AppCompatActivity
         if(name.equals("Main")){
             CurrentFragment = new Content_Main();
         }else if (name.equals("Profile")){
-            CurrentFragment=new ProfileFragment();
+            ProfileFragment profile = new ProfileFragment();
+            CurrentFragment=profile;
+            profile.CurrentUser = this.CurrentUser;
         }else if(name.equals("settings")){
             CurrentFragment= new SettingsFragment();
         }else if(name.equals("About")){

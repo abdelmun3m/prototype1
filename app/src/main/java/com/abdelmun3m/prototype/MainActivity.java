@@ -28,6 +28,12 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,11 +41,30 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    DataBase DBObject ;
     Fragment CurrentFragment;
+    User CurrentUser ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //-------------------DB_S--------------------------------
+        DBObject = new DataBase();
+        DBObject.User = FirebaseAuth.getInstance().getCurrentUser();
+        if (DBObject.User == null){
+            Intent j = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(j);
+            this.finish();
+        }else {
+            if(CurrentUser == null){
+                getCurrentUser();
+            }
+        }
+        //--------------------DB_E--------------------------------
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Bumpo");
@@ -122,7 +147,9 @@ public class MainActivity extends AppCompatActivity
         if(name.equals("Main")){
             CurrentFragment = new Content_Main();
         }else if (name.equals("Profile")){
-            CurrentFragment=new ProfileFragment();
+            ProfileFragment profile = new ProfileFragment();
+            CurrentFragment=profile;
+            profile.CurrentUser = this.CurrentUser;
         }else if(name.equals("settings")){
             CurrentFragment= new SettingsFragment();
         }else if(name.equals("About")){
@@ -135,4 +162,46 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.container,CurrentFragment);
         fragmentTransaction.commit();
     }
+
+    public void getCurrentUser(){
+        DBObject.ValueListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userDB u = dataSnapshot.getValue(userDB.class);
+                CurrentUser = new User(u , DBObject.User.getUid());
+                if(u != null){updateView(true);}
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                updateView(false);
+            }
+        };
+        DBObject.DBreference.child("user").child(DBObject.User.getUid()).addValueEventListener(DBObject.ValueListener);
     }
+    public void updateView(boolean user){
+        if(user){
+            Toast.makeText(getApplicationContext(),"Welcome : " + CurrentUser.getE_mail(),Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"No User Found ",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(DBObject.ValueListener != null){
+            DBObject.DBreference.child("user").child(DBObject.User.getUid()).removeEventListener(DBObject.ValueListener);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(DBObject.ValueListener != null){
+            DBObject.DBreference.child("user").child(DBObject.User.getUid()).addValueEventListener(DBObject.ValueListener);
+        }
+    }
+}

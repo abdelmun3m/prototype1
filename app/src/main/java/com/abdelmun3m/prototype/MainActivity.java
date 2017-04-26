@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         //-------------------DB_S--------------------------------
         DBObject = new DataBase();
         DBObject.User = FirebaseAuth.getInstance().getCurrentUser();
-        if (DBObject.User != null){
+        if (DBObject.User == null){
             Intent j = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(j);
             this.finish();

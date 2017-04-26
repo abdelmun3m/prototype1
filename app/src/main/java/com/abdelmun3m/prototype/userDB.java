@@ -6,7 +6,6 @@ package com.abdelmun3m.prototype;
 
 public class userDB {
 
-
     public String name;
     public String password;
     public String e_mail;
@@ -15,10 +14,11 @@ public class userDB {
     public float distance_N;
     public int authentication;
     public int notification_Mode;
+    public String Profile_Pic;
 
     public userDB(String name, String password, String e_mail,
                   String governorate, String city, float distance_N,
-                  int authentication, int notification_Mode){
+                  int authentication, int notification_Mode ,String pic){
         this.name = name;
         this.password = password;
         this.e_mail = e_mail;
@@ -27,6 +27,7 @@ public class userDB {
         this.distance_N =distance_N;
         this.authentication=authentication;
         this.notification_Mode = notification_Mode;
+        this.Profile_Pic=pic;
     }
     public userDB(){
 

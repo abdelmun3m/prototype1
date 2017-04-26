@@ -34,11 +34,12 @@ public class User {
 
 
     //-------------------------------------Methods--------------------------------------------------
-    public User(String name, String password, String e_mail,
+    public User(String id,String name, String password, String e_mail,
                 String governorate, String city, float distance_N,
-                int authentication, int notification_Mode
+                int authentication, int notification_Mode,String PIC
                 ){
-      this.UDB = new userDB(name , password , e_mail , governorate , city ,distance_N , authentication , notification_Mode);
+        this.id = id;
+      this.UDB = new userDB(name , password , e_mail , governorate , city ,distance_N , authentication , notification_Mode,PIC);
     }
 
     public User(String Id){
@@ -51,10 +52,6 @@ public class User {
         this.distance_N = this.UDB.distance_N;
         this.authentication = this.UDB.authentication;
         this.notification_Mode = this.UDB.notification_Mode;
-    }
-
-    public User(){
-
     }
 
     public String getName() {
@@ -166,9 +163,7 @@ public class User {
     }*/
 
       public void addNewUser(){
-        String id = this.userDBReference.push().getKey();
-          this.userDBReference.push().setValue(this.UDB);
-        this.id = id;
+          this.userDBReference.child(this.id).setValue(this.UDB);
     }
 
 

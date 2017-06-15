@@ -44,12 +44,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         //------------------------DB_S---------------------------------
         myAuth = FirebaseAuth.getInstance();
-        if (myAuth.getCurrentUser() != null){
+       /* if (myAuth.getCurrentUser() != null){
             Intent j = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(j);
             this.finish();
         }
-        //------------------------DB_E------------------------------------
+       */ //------------------------DB_E------------------------------------
         // Address the email and password field
         ok = (Button) findViewById(R.id.btnLogin);
         ok.setOnClickListener(this);
@@ -97,8 +97,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void doSomethingElse() {
-
-
         final String email = emailEditText.getText().toString();
         if (!isValidEmail(email)) {
             //Set error message for email field

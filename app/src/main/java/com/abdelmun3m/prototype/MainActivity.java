@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,29 +46,30 @@ public class MainActivity extends AppCompatActivity
     DataBase DBObject ;
     Fragment CurrentFragment;
     User CurrentUser ;
-
+    FirebaseAuth myAuth;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("test 25 ","in main ");
         //-------------------DB_S--------------------------------
         DBObject = new DataBase();
-        DBObject.User = FirebaseAuth.getInstance().getCurrentUser();
-        if (DBObject.User == null){
+        myAuth = FirebaseAuth.getInstance();
+        if (myAuth.getCurrentUser() == null){
             Intent j = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(j);
             this.finish();
         }else {
-            if(CurrentUser == null){
                 getCurrentUser();
-            }
         }
         //--------------------DB_E--------------------------------
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Bumpo");
+         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.setTitle("Bumpo");
+
         setSupportActionBar(toolbar);
 
         ChangeCurrentFragment("Main");
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_Feedback) {
            // startActivity(new Intent(MainActivity.this,guipop.class));
         }else if (id == R.id.nav_Logout) {
-           startActivity(new Intent(MainActivity.this,LoginActivity.class));
+           logOut();
        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userDB u = dataSnapshot.getValue(userDB.class);
-                CurrentUser = new User(u , DBObject.User.getUid());
+                CurrentUser = new User(u , myAuth.getCurrentUser().getUid());
                 if(u != null){updateView(true);}
             }
 
@@ -177,23 +179,48 @@ public class MainActivity extends AppCompatActivity
                 updateView(false);
             }
         };
-        DBObject.DBreference.child("user").child(DBObject.User.getUid()).addValueEventListener(DBObject.ValueListener);
+        try{
+            DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).
+                    addValueEventListener(DBObject.ValueListener);
+
+        }
+        catch (Exception e){Toast.makeText(getApplicationContext(),"Message : "+e.getMessage().toString(),Toast.LENGTH_LONG).show();}
+
     }
     public void updateView(boolean user){
         if(user){
-            Toast.makeText(getApplicationContext(),"Welcome : " + CurrentUser.getE_mail(),Toast.LENGTH_LONG).show();
+            if(CurrentUser.getName() != null){
+                toolbar.setTitle(CurrentUser.getName());
+            }else{
+                toolbar.setTitle("anonymous");
+            }
         }
         else{
-            Toast.makeText(getApplicationContext(),"No User Found ",Toast.LENGTH_LONG).show();
+            logOut();
         }
 
     }
 
+    public void logOut(){
+        DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).removeEventListener(DBObject.ValueListener);
+        FirebaseAuth.getInstance().signOut();
+        this.CurrentUser = null;
+        this.myAuth = null;
+        this.DBObject = null;
+        if (FirebaseAuth.getInstance().getCurrentUser() == null){
+            Intent j = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(j);
+            this.finish();
+        }
+
+    }
     @Override
     protected void onPause() {
         super.onPause();
-        if(DBObject.ValueListener != null){
-            DBObject.DBreference.child("user").child(DBObject.User.getUid()).removeEventListener(DBObject.ValueListener);
+        if(DBObject != null){
+            if(DBObject.ValueListener != null){
+                DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).removeEventListener(DBObject.ValueListener);
+            }
         }
     }
 
@@ -201,7 +228,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         if(DBObject.ValueListener != null){
-            DBObject.DBreference.child("user").child(DBObject.User.getUid()).addValueEventListener(DBObject.ValueListener);
+            DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).addValueEventListener(DBObject.ValueListener);
         }
     }
 }

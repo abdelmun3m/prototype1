@@ -89,7 +89,7 @@ public class User {
     }
     public  void setProfile_Pic(String p){
         this.Profile_Pic = p;
-        this.userDBReference.child(this.id).setValue(p);
+       // this.userDBReference.child(this.id).setValue(p);
 
     }
     public String getGovernorate() {

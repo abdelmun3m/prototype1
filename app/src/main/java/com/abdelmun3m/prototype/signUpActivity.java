@@ -28,7 +28,7 @@ public class signUpActivity extends AppCompatActivity {
     EditText name,email,cpass,pass;
     Button signUp;
     Spinner covernorate;
-    FirebaseAuth myAuth ;
+    FirebaseAuth myAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

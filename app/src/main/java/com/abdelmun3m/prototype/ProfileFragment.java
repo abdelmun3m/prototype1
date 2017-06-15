@@ -4,11 +4,13 @@ package com.abdelmun3m.prototype;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -23,12 +25,17 @@ public class ProfileFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_profile, container,false);
 
-         imageViewEdite=(ImageView) view.findViewById(R.id.edit);
-        imageViewProfile = (ImageView)view.findViewById(R.id.imageview_profile);
-        username=(TextView)view.findViewById(R.id.firest_name);
-        Email=(TextView)view.findViewById(R.id.emaill_name);
-        city=(TextView)view.findViewById(R.id.city_num);
-        country=(TextView)view.findViewById(R.id.countryname); // ????
+        try {
+            imageViewEdite=(ImageView) view.findViewById(R.id.edit);
+            imageViewProfile = (ImageView)view.findViewById(R.id.imageview_profile);
+            username=(TextView)view.findViewById(R.id.firest_name);
+            Email=(TextView)view.findViewById(R.id.emaill_name);
+            city=(TextView)view.findViewById(R.id.city_num);
+            country=(TextView)view.findViewById(R.id.countryname); // ????
+        }catch (Exception e){
+            Toast.makeText(this.getContext(), "Error to define layout :: Message :"+e.getMessage().toString(), Toast.LENGTH_LONG).show();
+        }
+
 
         updateView();
 
@@ -41,7 +48,6 @@ public class ProfileFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.container,editProfile);
                 fragmentTransaction.commit();
-
             }
         });
 
@@ -49,11 +55,24 @@ public class ProfileFragment extends Fragment {
     }
 
     public void updateView(){
-        Glide.with(imageViewProfile.getContext())
-                .load(CurrentUser.getProfile_pic())
-                .into(imageViewProfile);
-       // if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}
-        if(CurrentUser.getE_mail() != null){Email.setText(CurrentUser.getE_mail());}
-        if(CurrentUser.getCity() != null){city.setText(CurrentUser.getCity());}
+        try {
+
+            if(CurrentUser.getProfile_pic() != null ){
+                Glide.with(imageViewProfile.getContext())
+                        .load(CurrentUser.getProfile_pic())
+                        .into(imageViewProfile);
+            }else{
+
+                Glide.with(imageViewProfile.getContext())
+                        .load(R.drawable.profile)
+                        .into(imageViewProfile);
+            }
+
+        }catch (Exception e){
+            Toast.makeText(this.getContext(), "Error load Image :: Message : "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        }
+        if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}else{username.setText("Empty");}
+        if(CurrentUser.getE_mail() != null){Email.setText(CurrentUser.getE_mail());}else{Email.setText("empty");}
+        if(CurrentUser.getCity() != null){city.setText(CurrentUser.getCity());}else{city.setText("empty");}
     }
 }

@@ -82,6 +82,16 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <ProgressBar
+                android:id="@+id/SignUpprogressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="11.25dp"

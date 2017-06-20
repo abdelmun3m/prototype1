@@ -1,82 +1,22 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Content_Main"
+    xmlns:android="http://schemas.android.com/apk/res/android"><!-- TODO: Update blank fragment layout -->
+<ScrollView android:id="@+id/S"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Content_Main">
-
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:id="@+id/S"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="60dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#f5f5f5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true">
-
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="357dp"
-                    android:layout_height="46dp"
-                    android:textColor="#757575"
-                    android:textSize="18sp"
-                    android:text="To activate driving mode "
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="25dp" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/actv1"
-                    android:id="@+id/imgvactive"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-
-            </RelativeLayout>
-
-            <TextView
-                android:text="Distance before reaching obstacle"
-                android:textSize="16dp"
-                android:textColor="#757575"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:layout_marginTop="220dp"
-                android:layout_centerHorizontal="true" />
-
-            <ProgressBar
-                android:id="@+id/circular_progress_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:indeterminate="false"
-                android:max="48"
-                android:progress="1"
-                android:progressDrawable="@drawable/circular_progressbar"
-                android:layout_marginTop="120dp"
-                android:layout_below="@+id/relativeLayout2"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:text="100 m"
-                android:textSize="34dp"
-                android:textColor="@color/primary_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/distnum"
-                android:layout_marginTop="25dp"
-                android:layout_below="@+id/textView2"
-                android:layout_centerHorizontal="true" />
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="60dp">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#f5f5f5" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_alignParentRight="true">
+            <TextView android:id="@+id/tv1" android:layout_width="357dp" android:layout_height="46dp" android:textColor="#757575" android:textSize="18sp" android:text="To activate driving mode " android:layout_marginLeft="15dp" android:layout_marginTop="25dp"/>
+            <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/actv1" android:id="@+id/imgvactive" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_alignParentEnd="true"/>
         </RelativeLayout>
-        </ScrollView>
+        <TextView android:text="Distance before reaching obstacle" android:textSize="16dp" android:textColor="#757575" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_marginTop="220dp" android:layout_centerHorizontal="true"/>
+        <ImageView android:layout_width="300dp" android:layout_height="500dp" android:visibility="invisible" android:id="@+id/warningimgv" android:layout_centerHorizontal="true" android:src="@drawable/warn1"/>
+        <ProgressBar android:id="@+id/circular_progress_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="300dp" android:layout_height="300dp" android:indeterminate="false" android:max="48" android:progress="1" android:progressDrawable="@drawable/circular_progressbar" android:layout_marginTop="120dp" android:layout_below="@+id/relativeLayout2" android:layout_centerHorizontal="true"/>
+        <TextView android:text="100 m" android:textSize="34dp" android:textColor="@color/primary_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/distnum" android:layout_marginTop="25dp" android:layout_below="@+id/textView2" android:layout_centerHorizontal="true"/>
 
-</FrameLayout>
+    </RelativeLayout>
+</ScrollView>
+    </FrameLayout>

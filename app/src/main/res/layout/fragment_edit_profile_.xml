@@ -15,8 +15,8 @@
             android:fitsSystemWindows="true"
             android:background="@drawable/road">
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:id="@+id/imageview_profile"
                 android:layout_marginTop="80dp"
@@ -75,7 +75,7 @@
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/mobile_num"
+                    android:id="@+id/country"
                     android:clickable="true"
                     android:elevation="4dp"
                     android:padding="10dp"
@@ -150,7 +150,7 @@
                 android:layout_alignTop="@+id/imageview_profile"
                 android:layout_toRightOf="@+id/imageview_profile"
                 android:layout_toEndOf="@+id/imageview_profile" />
-            </RelativeLayout>
-        </ScrollView>
+        </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

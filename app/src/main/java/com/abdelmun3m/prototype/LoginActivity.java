@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     FirebaseAuth myAuth ;
+    ProgressBar pb ;
+    RelativeLayout layout ;
 
 
     @Override
@@ -57,6 +61,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passEditText = (EditText) findViewById(R.id.password);
         saveLoginCheckBox = (CheckBox) findViewById(R.id.saveLoginCheckBox);
         SignUpTv = (TextView) findViewById(R.id.tvSignUp);
+        pb = (ProgressBar)findViewById(R.id.LoginprogressBar);
+        layout = (RelativeLayout)findViewById(R.id.Loginlayout);
         SignUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,15 +142,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void Pass_Mail_Login(String pass , String mail){
+
+        pb.setVisibility(View.VISIBLE);
+        pb.bringToFront();
         myAuth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(!task.isSuccessful()){
+                    pb.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "faild to SignIN"+
                             task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
                 }
                 if(task.isSuccessful() &&  task.isComplete()){
                     Intent j = new Intent(LoginActivity.this, MainActivity.class);
+                    pb.setVisibility(View.GONE);
                     startActivity(j);
                     LoginActivity.this.finish();
                 }

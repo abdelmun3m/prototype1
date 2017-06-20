@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class signUpActivity extends AppCompatActivity {
     Button signUp;
     Spinner covernorate;
     FirebaseAuth myAuth;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class signUpActivity extends AppCompatActivity {
         cpass = (EditText) findViewById(R.id.confirmpass);
         signUp = (Button) findViewById(R.id.btnSignUP);
         covernorate = (Spinner) findViewById(R.id.covernorateSpanner);
-
+        pb = (ProgressBar) findViewById(R.id.SignUpprogressBar);
 
         myAuth = FirebaseAuth.getInstance();
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -61,10 +63,12 @@ public class signUpActivity extends AppCompatActivity {
     }
 
     private void Pass_Mail_SignUP(final String pass , final String mail){
+        pb.setVisibility(View.VISIBLE);
         myAuth.createUserWithEmailAndPassword(mail,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(!task.isSuccessful()){
+                    pb.setVisibility(View.GONE);
                     Toast.makeText(signUpActivity.this, "faild to sign up : "+
                             task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
                 }
@@ -73,6 +77,7 @@ public class signUpActivity extends AppCompatActivity {
                     User newUser = new User(id,name.getText().toString(),pass,mail,"DEk","man",100,1,0,"");
                     newUser.addNewUser();
                     Intent j = new Intent(signUpActivity.this, MainActivity.class);
+                    pb.setVisibility(View.GONE);
                     startActivity(j);
                     signUpActivity.this.finish();
                 }

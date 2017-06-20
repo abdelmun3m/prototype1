@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity
     User CurrentUser ;
     FirebaseAuth myAuth;
     Toolbar toolbar;
+    ProgressBar pb ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Log.d("test 25 ","in main ");
         //-------------------DB_S--------------------------------
         DBObject = new DataBase();
@@ -68,18 +68,13 @@ public class MainActivity extends AppCompatActivity
 
 
          toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setTitle("Bumpo");
-
         setSupportActionBar(toolbar);
-
-        ChangeCurrentFragment("Main");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -110,11 +105,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-       /* if (id == R.id.action_settings) {
-            return true;
-        }
-*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,6 +115,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
        if (id == R.id.nav_PublicService) {
+           Intent i = new Intent(MainActivity.this,LocationServices.class);
+           startActivity(i);
             //startActivity(new Intent(MainActivity.this,distpop.class));
         } else if (id == R.id.nav_TrafficJam) {
            // startActivity(new Intent(MainActivity.this,ProfileScreenXMLUIDesign.class));
@@ -132,10 +124,12 @@ public class MainActivity extends AppCompatActivity
            ChangeCurrentFragment("Profile");
         }  else if (id == R.id.nav_settings) {
            ChangeCurrentFragment("settings");
-        } else if (id == R.id.nav_Feedback) {
-           // startActivity(new Intent(MainActivity.this,guipop.class));
+
         }else if (id == R.id.nav_Logout) {
            logOut();
+       }else if(id == R.id.about){
+           ChangeCurrentFragment("About");
+
        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -155,10 +149,7 @@ public class MainActivity extends AppCompatActivity
         }else if(name.equals("settings")){
             CurrentFragment= new SettingsFragment();
         }else if(name.equals("About")){
-          //  CurrentFragment=new About();
-
-        }else if(name.equals("ContactUs")){
-           // CurrentFragment=new ContactUS();
+          CurrentFragment=new about();
         }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container,CurrentFragment);
@@ -169,8 +160,10 @@ public class MainActivity extends AppCompatActivity
         DBObject.ValueListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(MainActivity.this, "data changed", Toast.LENGTH_SHORT).show();
                 userDB u = dataSnapshot.getValue(userDB.class);
                 CurrentUser = new User(u , myAuth.getCurrentUser().getUid());
+                ChangeCurrentFragment("Main");
                 if(u != null){updateView(true);}
             }
 
@@ -219,7 +212,8 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
         if(DBObject != null){
             if(DBObject.ValueListener != null){
-                DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).removeEventListener(DBObject.ValueListener);
+                DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).
+                        removeEventListener(DBObject.ValueListener);
             }
         }
     }

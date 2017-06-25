@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "AIzaSyDDfPTAeQB2gDcwU6nIUkjIaKrbBkHR4ug")
     }
     buildTypes {
         release {
@@ -38,7 +39,14 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.6.1'
     compile 'com.google.firebase:firebase-storage:9.6.1'
     compile 'com.github.bumptech.glide:glide:3.6.1'
+
     compile 'com.google.android.gms:play-services-maps:9.6.1'
+    compile 'com.google.android.gms:play-services-places:9.6.1'
+    //compile 'com.google.android.gms:play-services-base:9.6.1'
+    //compile 'com.google.android.gms:play-services-drive:9.6.1'
+    compile 'com.google.android.gms:play-services-location:9.6.1'
+   // compile 'com.google.android.gms:play-services-nearby:9.6.1'
+
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

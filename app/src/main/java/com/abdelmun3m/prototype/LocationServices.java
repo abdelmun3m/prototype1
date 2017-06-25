@@ -24,11 +24,14 @@ public class LocationServices extends FragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_services);
+
+
         Log.i("MainActivity", "msg4");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
         Log.i("MainActivity", "msg5");
         place = (TextView) findViewById(R.id.txtplace);
         btnfind = (Button) findViewById(R.id.btnFindPath);

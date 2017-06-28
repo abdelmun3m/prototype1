@@ -27,11 +27,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -39,25 +41,31 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DataBase DBObject ;
     Fragment CurrentFragment;
-    User CurrentUser ;
+    User CurrentUser;
     FirebaseAuth myAuth;
     Toolbar toolbar;
-    ProgressBar pb ;
+    Stack<String> History = new Stack<String>();
+    RelativeLayout pb ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("test 25 ","in main ");
+        pb = (RelativeLayout)findViewById(R.id.MainprogressBar);
         //-------------------DB_S--------------------------------
         DBObject = new DataBase();
         myAuth = FirebaseAuth.getInstance();
         if (myAuth.getCurrentUser() == null){
+            Toast.makeText(this, "Faild to Get Current User Please LogIN Again.", Toast.LENGTH_SHORT).show();
             Intent j = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(j);
             this.finish();
@@ -65,11 +73,8 @@ public class MainActivity extends AppCompatActivity
                 getCurrentUser();
         }
         //--------------------DB_E--------------------------------
-
-
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -77,7 +82,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
 
@@ -86,9 +90,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else{
             super.onBackPressed();
         }
+
     }
 
     @Override
@@ -104,7 +109,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -115,30 +119,31 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
        if (id == R.id.nav_PublicService) {
-           Intent i = new Intent(MainActivity.this,LocationServices.class);
-           startActivity(i);
-            //startActivity(new Intent(MainActivity.this,distpop.class));
+           try {
+               Intent i = new Intent(MainActivity.this,LocationServices.class);
+               startActivity(i);
+           }catch (Exception e){
+               Toast.makeText(this, "An Error accured while loading Services : "
+                       +e.getMessage().toString(), Toast.LENGTH_LONG).show();
+           }
         } else if (id == R.id.nav_TrafficJam) {
            // startActivity(new Intent(MainActivity.this,ProfileScreenXMLUIDesign.class));
         } else if (id == R.id.nav_Profile) {
-           ChangeCurrentFragment("Profile");
+           ChangeCurrentFragment("Profile",true);
         }  else if (id == R.id.nav_settings) {
-           ChangeCurrentFragment("settings");
-
+           ChangeCurrentFragment("settings",true);
         }else if (id == R.id.nav_Logout) {
            logOut();
        }else if(id == R.id.about){
-           ChangeCurrentFragment("About");
-
+           ChangeCurrentFragment("About",true);
        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
 
     }
-    public  void ChangeCurrentFragment(String name){
+    public  void ChangeCurrentFragment(String name , boolean h){
 
         if(name.equals("Main")){
             CurrentFragment = new Content_Main();
@@ -150,12 +155,22 @@ public class MainActivity extends AppCompatActivity
             CurrentFragment= new SettingsFragment();
         }else if(name.equals("About")){
           CurrentFragment=new about();
+        }else if(name.equals("load")){
+            CurrentFragment = new loading();
         }
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container,CurrentFragment);
-        fragmentTransaction.commit();
-    }
+        try {
 
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            if(h){
+                fragmentTransaction.replace(R.id.container,CurrentFragment).addToBackStack(name).commit();
+            }else{
+                fragmentTransaction.replace(R.id.container,CurrentFragment).commit();
+            }
+        }catch (Exception e){
+            Toast.makeText(this, "an Error Accured While Loading "+name+"Page : "
+                    +e.getMessage().toString(), Toast.LENGTH_LONG).show();
+        }
+    }
     public void getCurrentUser(){
         DBObject.ValueListener = new ValueEventListener() {
             @Override
@@ -163,39 +178,39 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "data changed", Toast.LENGTH_SHORT).show();
                 userDB u = dataSnapshot.getValue(userDB.class);
                 CurrentUser = new User(u , myAuth.getCurrentUser().getUid());
-                ChangeCurrentFragment("Main");
+                ChangeCurrentFragment("Main",true);
+                updateView(true);
                 if(u != null){updateView(true);}
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                updateView(false);
-            }
+            public void onCancelled(DatabaseError databaseError) {updateView(false);}
+
         };
         try{
             DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).
                     addValueEventListener(DBObject.ValueListener);
-
         }
-        catch (Exception e){Toast.makeText(getApplicationContext(),"Message : "+e.getMessage().toString(),Toast.LENGTH_LONG).show();}
+        catch (Exception e){Toast.makeText(getApplicationContext(),"Message : "
+                +e.getMessage().toString(),Toast.LENGTH_LONG).show();}
 
     }
     public void updateView(boolean user){
         if(user){
             if(CurrentUser.getName() != null){
                 toolbar.setTitle(CurrentUser.getName());
+                pb.setVisibility(View.GONE);
             }else{
-                toolbar.setTitle("anonymous");
+                toolbar.setTitle("Anonymous");
             }
         }
         else{
             logOut();
         }
-
     }
 
     public void logOut(){
-        DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid()).removeEventListener(DBObject.ValueListener);
+        DBObject.DBreference.child("user").child(myAuth.getCurrentUser().getUid())
+                .removeEventListener(DBObject.ValueListener);
         FirebaseAuth.getInstance().signOut();
         this.CurrentUser = null;
         this.myAuth = null;
@@ -205,8 +220,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(j);
             this.finish();
         }
-
     }
+
     @Override
     protected void onPause() {
         super.onPause();

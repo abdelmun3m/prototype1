@@ -65,9 +65,6 @@
             android:name=".LocationServices"
             android:label="@string/title_activity_location_services" />
         <activity android:name=".ACCSERVOController"></activity>
-        <activity
-            android:name=".myMabactivity"
-            android:label="@string/title_activity_my_mabactivity"></activity>
     </application>
 
 </manifest>

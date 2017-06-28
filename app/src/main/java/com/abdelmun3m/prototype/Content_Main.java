@@ -15,6 +15,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -28,13 +29,12 @@ public class Content_Main extends Fragment {
     private TextView distance;
     private Handler mHandler = new Handler();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_content__main, container, false);
-
-
 
         imgActive = (ImageButton) view.findViewById(R.id.imgvactive);
         Warningimgv=(ImageView)view.findViewById(R.id.warningimgv);
@@ -107,6 +107,5 @@ public class Content_Main extends Fragment {
             }
         }).start();
     }
-
-    }
+ }
 

@@ -22,14 +22,13 @@ public class DataBase {
 
 
     private static final String TAG = "DataBaseClass";
+
     public FirebaseDatabase DBinsatnce;
     public DatabaseReference DBreference;
     public ValueEventListener ValueListener;
     public FirebaseAuth myAuth;
     public FirebaseAuth.AuthStateListener myAuthListener;
     public FirebaseUser User ;
-
-
 
     public  DataBase(){
         DBinsatnce = FirebaseDatabase.getInstance(); // get an instance from the database .

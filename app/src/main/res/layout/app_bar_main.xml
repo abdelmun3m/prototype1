@@ -29,7 +29,21 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/MainprogressBar"
+            >
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="145dp"
+                android:layout_height="137dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </FrameLayout>
 
 
 

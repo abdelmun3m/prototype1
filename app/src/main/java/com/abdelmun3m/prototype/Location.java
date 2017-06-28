@@ -11,9 +11,53 @@ public class Location {
 
     //--------------------------------------Properties----------------------------------------------
     private String id;
+    private double longtiude;
+    private double latitude;
+    private String address;
+    private double distance;
+    private double speed;
     //----------------------------------------------------------------------------------------------
 
     //---------------------------------------Methods------------------------------------------------
+    public double getLongtiude() {
+        return longtiude;
+    }
+
+    public void setLongtiude(double longtiude) {
+        this.longtiude = longtiude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
     //----------------------------------------------------------------------------------------------
 
 
@@ -24,8 +68,8 @@ public class Location {
         R.child("location").push().setValue(this);
         this.id = id;
     }
-    public ValueEventListener getLocation(){
 
+    public ValueEventListener getLocation(){
         ValueEventListener UserListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

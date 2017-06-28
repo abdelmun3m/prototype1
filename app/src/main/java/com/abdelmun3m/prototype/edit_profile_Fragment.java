@@ -39,7 +39,6 @@ public class edit_profile_Fragment extends Fragment {
     View view;
     EditText username,Email,country,city;
     Button save;
-
     private FirebaseStorage myStorage ;
     private StorageReference myStorageRef;
     User CurrentUser ;
@@ -126,10 +125,12 @@ public class edit_profile_Fragment extends Fragment {
         Glide.with(imageView.getContext())
                 .load(CurrentUser.getProfile_pic())
                 .into(imageView);
-       // if(CurrentUser.getName() != null){username.setText(CurrentUser.getName());}
-        //if(CurrentUser.getE_mail() != null){Email.setText(CurrentUser.getE_mail());}
-        //if(CurrentUser.getCity() != null){city.setText(CurrentUser.getCity());}
 
+      /*  if (CurrentUser != null){
+            if(!CurrentUser.getName().equals("")){username.setText(CurrentUser.getName());}else{username.setText("Anonimous");}
+            if(!CurrentUser.getE_mail().equals("")){Email.setText(CurrentUser.getE_mail());}else{Email.setText("Anonimous");}
+            if(!CurrentUser.getCity().equals("")){city.setText(CurrentUser.getCity());}else{Email.setText("Anonimous");}
+        }*/
     }
 
 }

@@ -155,8 +155,6 @@ public class MainActivity extends AppCompatActivity
             CurrentFragment= new SettingsFragment();
         }else if(name.equals("About")){
           CurrentFragment=new about();
-        }else if(name.equals("load")){
-            CurrentFragment = new loading();
         }
         try {
 

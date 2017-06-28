@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.abdelmun3m.prototype"> <!-- force include firebase Ui library instate of the minsdk required in it(17) and the minSDK in project(15) -->
-    <uses-sdk tools:overrideLibrary="com.firebase.ui.auth" />
+    package="com.abdelmun3m.prototype">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -19,7 +18,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".LvqXml"
             android:theme="@style/AppTheme.CustomTheme" />
@@ -47,6 +46,7 @@
         <activity
             android:name=".notification_popup"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!--
         The API key for Google Maps-based APIs is defined as a string resource.
         (See the file "res/values/google_maps_api.xml").
         Note that the API key is linked to the encryption key used to sign the APK.
@@ -54,6 +54,7 @@
         to
         sign the APK for publishing.
         You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDDfPTAeQB2gDcwU6nIUkjIaKrbBkHR4ug" />
@@ -64,6 +65,9 @@
             android:name=".LocationServices"
             android:label="@string/title_activity_location_services" />
         <activity android:name=".ACCSERVOController"></activity>
+        <activity
+            android:name=".myMabactivity"
+            android:label="@string/title_activity_my_mabactivity"></activity>
     </application>
 
 </manifest>

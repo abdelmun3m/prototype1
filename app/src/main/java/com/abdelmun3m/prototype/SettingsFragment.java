@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class SettingsFragment extends Fragment {
     int distance = 100;
     int alarmTime = 15;
-    String notifyType;
+    int notifyType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +28,7 @@ public class SettingsFragment extends Fragment {
         final TextView distTime = (TextView) view.findViewById(R.id.distanceTime);
         final TextView AlarmTime = (TextView) view.findViewById(R.id.AlarmTime);
         final SeekBar distanceSeekbar = (SeekBar) view.findViewById(R.id.seekbar);
+
         distanceSeekbar.setMax(199);
         distanceSeekbar.setProgress(distance);
         distanceSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -35,6 +36,7 @@ public class SettingsFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progress += 1;
                 distTime.setText(progress + "Km before obstacle");
+                distance = progress;
             }
 
             @Override
@@ -56,6 +58,7 @@ public class SettingsFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progress += 1;
                 AlarmTime.setText(progress + "minutes");
+                alarmTime = progress;
             }
 
             @Override
@@ -73,14 +76,16 @@ public class SettingsFragment extends Fragment {
         CheckBox guiFlash = (CheckBox) view.findViewById(R.id.GuifflashChk);
         CheckBox guiWithoutFlash = (CheckBox) view.findViewById(R.id.GuiChk);
         if (voice.isChecked())
-            notifyType = "voice";
+            notifyType =  1;//"voice";
         else if (guiFlash.isChecked())
-            notifyType = "Gui With flash";
+            notifyType = 2;//"Gui With flash";
         else if (guiWithoutFlash.isChecked())
-            notifyType = "Gui without Flash";
-
+            notifyType = 3;//"Gui without Flash";
         return view;
 
-
     }
+
+    public int getUserDistance(){return this.distance;}
+    public int getAlarmTime(){return this.alarmTime;}
+    public int getNotificationMode(){ return this.notifyType;}
 }

@@ -2,6 +2,7 @@ package com.abdelmun3m.prototype;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -42,15 +43,17 @@ public class Content_Main extends Fragment {
         imgActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isPressed = !isPressed;
                 if (isPressed) {
                     imgActive.setImageResource(R.drawable.actv1);
-
+                    getActivity().stopService(new Intent(getActivity(),ACCSERVO.class));
                 } else {
                     imgActive.setImageResource(R.drawable.actv3);
                     active=true;
                     UpdatedistNum();
+                    getActivity().startService(new Intent(getActivity(),ACCSERVO.class));
                 }
-                isPressed = !isPressed;
+
 
             }
         });
